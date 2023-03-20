@@ -3,7 +3,6 @@ package com.example.tesrserver.service;
 import com.example.tesrserver.entity.TodoEntity;
 import com.example.tesrserver.entity.UserEntity;
 import com.example.tesrserver.model.Todo;
-import com.example.tesrserver.repository.TodoRepo;
 import com.example.tesrserver.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
