@@ -41,13 +41,7 @@ public class OrderEntity {
         this.user = user;
     }
 
-    public StoreEntity getStore() {
-        return store;
-    }
 
-    public void setStore(StoreEntity store) {
-        this.store = store;
-    }
 
     public LocalDateTime getOrderTime() {
         return orderTime;
@@ -63,5 +57,13 @@ public class OrderEntity {
 
     public void setTotalPrice(BigDecimal totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    public StoreEntity getStore() {
+        return store;
+    }
+
+    public void setStore(StoreEntity store) {
+        this.store = store;
     }
 }

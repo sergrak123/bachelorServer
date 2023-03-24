@@ -17,7 +17,7 @@ public class StoreEntity {
     private List<OrderEntity> orders;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "store")
-    private List<OrderEntity> products;
+    private List<ProductEntity> products;
 
     public StoreEntity() {
     }
@@ -54,11 +54,11 @@ public class StoreEntity {
         this.orders = orders;
     }
 
-    public List<OrderEntity> getProducts() {
+    public List<ProductEntity> getProducts() {
         return products;
     }
 
-    public void setProducts(List<OrderEntity> products) {
+    public void setProducts(List<ProductEntity> products) {
         this.products = products;
     }
 }

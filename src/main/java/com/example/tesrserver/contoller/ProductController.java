@@ -1,12 +1,8 @@
 package com.example.tesrserver.contoller;
 
 import com.example.tesrserver.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
@@ -19,19 +15,36 @@ public class ProductController {
         this.productService = productService;
     }
 
+    //возвращает каталог c объедненными карточками + пагинация/сортировка/фильтрация
     @GetMapping
     public ResponseEntity getAllProducts(){
         try {
             return ResponseEntity.ok().body(productService.getAllProducts());
-//            Map<String, Object> response = new HashMap<>();
-//            response.put("message", "Test data");
-//            response.put("number", 1)
-//            return ResponseEntity.ok(response);
-//            return ResponseEntity.ok().body(userService.getOne(id));
-//        }catch (UserNotFoundExeption e){
-//            return ResponseEntity.badRequest().body(e.getMessage());
         }catch (Exception e){
             return ResponseEntity.badRequest().body("Error");
         }
     }
+
+//    @PostMapping
+//    public ResponseEntity addProduct(@RequestBody Product product){
+//        try {
+//            return ResponseEntity.ok().body(productService.addProduct(product));
+//        }catch (Exception e){
+//            return ResponseEntity.badRequest().body("Error");
+//        }
+//    }
+
+    //возвращает товар для отображения карточки со всеми ценами
+    //можно по имени (или артикулу)
+//    @GetMapping("/{id}")
+//    public ResponseEntity getProduct(@PathVariable Long articol){
+//        return ResponseEntity.badRequest().body("Error");
+//    }
+
+    //Ex: (/products?name=water)
+    //возвращает модель карточки товара
+//    @GetMapping("/get")
+//    public ResponseEntity getProduct(@RequestParam String name){
+//        return ResponseEntity.badRequest().body("Error");
+//    }
 }
