@@ -25,6 +25,15 @@ public class ProductController {
         }
     }
 
+    @GetMapping("/get")
+    public ResponseEntity getProductCard(@RequestParam String name){
+        try {
+            return ResponseEntity.ok().body(productService.getProductCard(name));
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body("Error");
+        }
+    }
+
 //    @PostMapping
 //    public ResponseEntity addProduct(@RequestBody Product product){
 //        try {

@@ -9,11 +9,13 @@ import java.util.Optional;
 
 public interface ProductRepo extends JpaRepository<ProductEntity, Long> {
 
-    Optional<ProductEntity> findProductEntityByName(String name);
+//    Optional<ProductEntity> findProductEntityByName(String name);
 
     @Query("select distinct p.name from ProductEntity p")
     List<String> findDistinctNames();
 
     ProductEntity findTopByNameOrderByPrice(String name);
+
+    List<ProductEntity> findByName(String name);
 
 }
