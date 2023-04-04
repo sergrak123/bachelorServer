@@ -2,7 +2,7 @@ package com.example.tesrserver.service;
 
 import com.example.tesrserver.entity.ProductEntity;
 import com.example.tesrserver.exeptions.NotFoundException;
-import com.example.tesrserver.model.CartUnit;
+import com.example.tesrserver.model.ProdUnit;
 import com.example.tesrserver.model.Product;
 import com.example.tesrserver.model.ProductCard;
 import com.example.tesrserver.repository.ProductRepo;
@@ -23,7 +23,7 @@ public class ProductService {
         this.storeRepo = storeRepo;
     }
 
-    //в единную карточку
+    //Вывод католога с объединенными карточками
     public List<Product> getAllProducts() {
 
         List<String> distinctNames = productRepo.findDistinctNames();
@@ -35,19 +35,20 @@ public class ProductService {
         return productList;
     }
 
-    //name или артикул
+    //Возвращает карточку товара по name или артикулу со всеми ценами
     public ProductCard getProductCard(String name) {
 
         //минимальный товар(переписать)
         ProductEntity minProduct = productRepo.findTopByNameOrderByPrice(name);
 
         //все товары без минимального
-        List<CartUnit> products = productRepo.findByName(name)
+        List<ProdUnit> products = productRepo.findByName(name)
                 .stream()
-                .filter(prod -> prod.getId()!= minProduct.getId())
-                .map(product ->  new CartUnit(product.getStore().getId(),product.getPrice()))
+                .filter(prod -> prod.getId() != minProduct.getId())
+                .map(product -> new ProdUnit(product.getStore().getId(), product.getPrice()))
                 .collect(Collectors.toList());
 
+        //формируем карточку товара
         ProductCard productCard = new ProductCard();
         productCard.setName(minProduct.getName());
         productCard.setDescription("descr");

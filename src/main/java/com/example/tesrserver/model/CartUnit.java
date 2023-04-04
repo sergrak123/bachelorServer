@@ -3,23 +3,23 @@ package com.example.tesrserver.model;
 import java.math.BigDecimal;
 
 public class CartUnit {
-    private Long storeId;
+    private Long productId;
     private BigDecimal price;
 
     public CartUnit() {
     }
 
-    public CartUnit(Long storeId, BigDecimal price) {
-        this.storeId = storeId;
+    public CartUnit(Long productId, BigDecimal price) {
+        this.productId = productId;
         this.price = price;
     }
 
-    public Long getStoreId() {
-        return storeId;
+    public Long getProductId() {
+        return productId;
     }
 
-    public void setStoreId(Long storeId) {
-        this.storeId = storeId;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
     public BigDecimal getPrice() {

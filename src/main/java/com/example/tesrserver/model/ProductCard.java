@@ -1,7 +1,5 @@
 package com.example.tesrserver.model;
 
-import com.example.tesrserver.entity.ProductEntity;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
@@ -13,18 +11,18 @@ public class ProductCard implements Serializable {
     private BigDecimal minPrice;
     private Long minStore;
     private String description;
-    private List<CartUnit> cartUnits;
+    private List<ProdUnit> prodUnits;
 
     public ProductCard() {
     }
 
-    public ProductCard(String name, String photoUrl, BigDecimal minPrice, Long minStore, String description, List<CartUnit> cartUnits) {
+    public ProductCard(String name, String photoUrl, BigDecimal minPrice, Long minStore, String description, List<ProdUnit> prodUnits) {
         this.name = name;
         this.photoUrl = photoUrl;
         this.minPrice = minPrice;
         this.minStore = minStore;
         this.description = description;
-        this.cartUnits = cartUnits;
+        this.prodUnits = prodUnits;
     }
 
     public String getName() {
@@ -67,11 +65,11 @@ public class ProductCard implements Serializable {
         this.description = description;
     }
 
-    public List<CartUnit> getCartUnits() {
-        return cartUnits;
+    public List<ProdUnit> getCartUnits() {
+        return prodUnits;
     }
 
-    public void setCartUnits(List<CartUnit> cartUnits) {
-        this.cartUnits = cartUnits;
+    public void setCartUnits(List<ProdUnit> prodUnits) {
+        this.prodUnits = prodUnits;
     }
 }
