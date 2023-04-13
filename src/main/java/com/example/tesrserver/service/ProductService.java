@@ -1,29 +1,37 @@
 package com.example.tesrserver.service;
 
+import com.example.tesrserver.entity.ProductCardEntity;
 import com.example.tesrserver.entity.ProductEntity;
 import com.example.tesrserver.exeptions.NotFoundException;
 import com.example.tesrserver.model.ProdUnit;
 import com.example.tesrserver.model.Product;
 import com.example.tesrserver.model.ProductCard;
+import com.example.tesrserver.repository.ProductCardRepo;
 import com.example.tesrserver.repository.ProductRepo;
 import com.example.tesrserver.repository.StoreRepo;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
     private final ProductRepo productRepo;
+    private final ProductCardRepo productCardRepo;
     private final StoreRepo storeRepo;
 
-    public ProductService(ProductRepo productRepo, StoreRepo storeRepo) {
+    public ProductService(ProductRepo productRepo, ProductCardRepo productCardRepo, StoreRepo storeRepo) {
         this.productRepo = productRepo;
+        this.productCardRepo = productCardRepo;
         this.storeRepo = storeRepo;
     }
 
-    //Вывод католога с объединенными карточками
+    //Вывод каталога с объединенными карточками
     public List<Product> getAllProducts() {
 
         List<String> distinctNames = productRepo.findDistinctNames();
@@ -35,6 +43,15 @@ public class ProductService {
         return productList;
     }
 
+    //Вывод каталога
+    public Page<ProductCardEntity> getAllProductsCustom(Integer page, Integer size, String category) {
+        String sortField = "minPrice";
+        if (Objects.equals(category, "all"))
+            return productCardRepo.findAll(PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, sortField)));
+
+        return productCardRepo.findAllByCategory(category, PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, sortField)));
+    }
+
     //Возвращает карточку товара по name или артикулу со всеми ценами
     public ProductCard getProductCard(String name) {
 
@@ -44,7 +61,7 @@ public class ProductService {
         //все товары без минимального
         List<ProdUnit> products = productRepo.findByName(name)
                 .stream()
-                .filter(prod -> prod.getId() != minProduct.getId())
+                .filter(prod -> !Objects.equals(prod.getId(), minProduct.getId()))
                 .map(product -> new ProdUnit(product.getStore().getId(), product.getPrice()))
                 .collect(Collectors.toList());
 

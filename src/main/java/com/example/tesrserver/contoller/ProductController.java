@@ -17,19 +17,32 @@ public class ProductController {
 
     //возвращает каталог c объедненными карточками + пагинация/сортировка/фильтрация
     @GetMapping
-    public ResponseEntity getAllProducts(){
+    public ResponseEntity getAllProducts() {
         try {
             return ResponseEntity.ok().body(productService.getAllProducts());
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error");
         }
     }
 
+    @GetMapping("/custom")
+    public ResponseEntity getAllProductsCustom(@RequestParam(value = "page", defaultValue = "0") Integer page,
+                                               @RequestParam(value = "size", defaultValue = "4") Integer size,
+                                               @RequestParam(value = "category", defaultValue = "all") String category
+    ) {
+        try {
+            return ResponseEntity.ok().body(productService.getAllProductsCustom(page, size, category));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error");
+        }
+    }
+
+
     @GetMapping("/get")
-    public ResponseEntity getProductCard(@RequestParam String name){
+    public ResponseEntity getProductCard(@RequestParam String name) {
         try {
             return ResponseEntity.ok().body(productService.getProductCard(name));
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error");
         }
     }
