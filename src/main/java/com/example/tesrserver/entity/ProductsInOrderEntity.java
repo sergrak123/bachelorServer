@@ -10,10 +10,20 @@ public class ProductsInOrderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Integer value;
-    private BigDecimal orderPrice;
+    private Long productId;
+    //change to OrderEntity and 1/m
+    private Long orderId;
+    private Integer quantity;
+    private BigDecimal orderedPrice;
 
     public ProductsInOrderEntity() {
+    }
+
+    public ProductsInOrderEntity(Long orderId, Long productId, Integer quantity, BigDecimal orderedPrice) {
+        this.orderId = orderId;
+        this.productId = productId;
+        this.quantity = quantity;
+        this.orderedPrice = orderedPrice;
     }
 
     public Long getId() {
@@ -24,19 +34,35 @@ public class ProductsInOrderEntity {
         this.id = id;
     }
 
-    public Integer getValue() {
-        return value;
+    public Integer getQuantity() {
+        return quantity;
     }
 
-    public void setValue(Integer value) {
-        this.value = value;
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
-    public BigDecimal getOrderPrice() {
-        return orderPrice;
+    public BigDecimal getOrderedPrice() {
+        return orderedPrice;
     }
 
-    public void setOrderPrice(BigDecimal orderPrice) {
-        this.orderPrice = orderPrice;
+    public void setOrderedPrice(BigDecimal orderedPrice) {
+        this.orderedPrice = orderedPrice;
+    }
+
+    public Long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
+    }
+
+    public Long getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
 }

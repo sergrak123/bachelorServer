@@ -1,4 +1,4 @@
-package com.example.tesrserver.model;
+package com.example.tesrserver.model.product;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

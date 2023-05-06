@@ -3,9 +3,9 @@ package com.example.tesrserver.service;
 import com.example.tesrserver.entity.ProductCardEntity;
 import com.example.tesrserver.entity.ProductEntity;
 import com.example.tesrserver.exeptions.NotFoundException;
-import com.example.tesrserver.model.ProdUnit;
-import com.example.tesrserver.model.Product;
-import com.example.tesrserver.model.ProductCard;
+import com.example.tesrserver.model.product.ProdUnit;
+import com.example.tesrserver.model.product.Product;
+import com.example.tesrserver.model.product.ProductCard;
 import com.example.tesrserver.repository.ProductCardRepo;
 import com.example.tesrserver.repository.ProductRepo;
 import com.example.tesrserver.repository.StoreRepo;
@@ -15,6 +15,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -33,7 +34,6 @@ public class ProductService {
 
     //Вывод каталога с объединенными карточками
     public List<Product> getAllProducts() {
-
         List<String> distinctNames = productRepo.findDistinctNames();
         List<Product> productList = new ArrayList<>();
         for (String name : distinctNames) {
@@ -59,10 +59,16 @@ public class ProductService {
         ProductEntity minProduct = productRepo.findTopByNameOrderByPrice(name);
 
         //все товары без минимального
+//        List<ProdUnit> products = productRepo.findByName(name)
+//                .stream()
+//                .filter(prod -> !Objects.equals(prod.getId(), minProduct.getId()))
+//                .map(product -> new ProdUnit(product.getStore().getId(), product.getPrice()))
+//                .collect(Collectors.toList());
+
         List<ProdUnit> products = productRepo.findByName(name)
                 .stream()
-                .filter(prod -> !Objects.equals(prod.getId(), minProduct.getId()))
-                .map(product -> new ProdUnit(product.getStore().getId(), product.getPrice()))
+                .map(product -> new ProdUnit(product.getId(),product.getStore().getId(), product.getPrice()))
+                .sorted(Comparator.comparing(ProdUnit::getPrice))
                 .collect(Collectors.toList());
 
         //формируем карточку товара

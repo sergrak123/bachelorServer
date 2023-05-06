@@ -1,4 +1,4 @@
-package com.example.tesrserver.model;
+package com.example.tesrserver.model.product;
 
 import com.example.tesrserver.entity.ProductEntity;
 

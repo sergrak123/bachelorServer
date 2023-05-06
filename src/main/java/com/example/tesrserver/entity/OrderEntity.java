@@ -25,6 +25,13 @@ public class OrderEntity {
     public OrderEntity() {
     }
 
+    public OrderEntity(UserEntity user, StoreEntity store, LocalDateTime orderTime, BigDecimal totalPrice) {
+        this.orderTime = orderTime;
+        this.totalPrice = totalPrice;
+        this.user = user;
+        this.store = store;
+    }
+
     public Long getId() {
         return id;
     }
@@ -40,8 +47,6 @@ public class OrderEntity {
     public void setUser(UserEntity user) {
         this.user = user;
     }
-
-
 
     public LocalDateTime getOrderTime() {
         return orderTime;
@@ -65,5 +70,16 @@ public class OrderEntity {
 
     public void setStore(StoreEntity store) {
         this.store = store;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderEntity{" +
+                "id=" + id +
+                ", orderTime=" + orderTime +
+                ", totalPrice=" + totalPrice +
+                ", user=" + user +
+                ", store=" + store +
+                '}';
     }
 }
